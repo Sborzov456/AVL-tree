@@ -3,7 +3,7 @@
 
 int main() {
     int option = -1;
-    node *root = NULL, *unb = NULL;
+    node *root = NULL;
     char *msgs[] = {"0. Quit", "1. Add", "2. Find", "3. Delete", "4. Show", "5. Find an farthest item"};
     root = create(root);
     while (option) {
@@ -19,7 +19,6 @@ int main() {
             free(information);
         }
         if (option == 2) {
-            node *tmp;
             int key;
             printf("Enter key: ");
             scanf("%d", &key);

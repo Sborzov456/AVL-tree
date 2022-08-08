@@ -31,8 +31,8 @@ node *findMin(node *root); //find item with minimal key in subtree
 node *findMax(node *root); //find item with maximal key in subtree
 int findFurthestItem(node *root, int key); //find the item, which key difference with data most
 node *extract(node *root, int key); //delete item and rebalance after that
-int height(node *root); //height of node
-void print(node *root, int lvl); //print node in console
+int height(node *root); //height of subtree
+void print(node *root, int lvl); //print tree in console
 
 
 
@@ -41,8 +41,8 @@ node *searchUnbalancedNode(node *leaf);
 int calculateNodeBalance(node *item); //calculate and set balance of item
 node *rotateRight(node *p, node **root);
 node *rotateLeft(node *rotationNode, node **root);
-node *balance(node *unbalancedNode, node **root); //balance the node
-void recountBalance(node *root); //recount balance of each item
+node *balance(node *unbalancedNode, node **root); //balance the tree
+void recountBalance(node *root); //recount balance of each node
 
 
 

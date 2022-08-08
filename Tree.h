@@ -26,7 +26,7 @@ typedef struct node //item of tree
 node *create(node *root);
 node *search(node *root, int key); //search info by key
 info *addItemToInfoList(info *inf, char *information);
-node *add(node *root, int key, char *information); //add item to the node
+node *add(node *root, int key, char *information); //add item to the tree
 node *findMin(node *root); //find item with minimal key in subtree
 node *findMax(node *root); //find item with maximal key in subtree
 int findFurthestItem(node *root, int key); //find the item, which key difference with data most

@@ -19,19 +19,19 @@ int getInt(int* value)
 int dialog(char *msgs[])
 {
     char *errorMessage = "";
-    int rc;
-    int i, n;
+    int option;
     do{
         puts(errorMessage);
         errorMessage = "You are wrong. Repeate, please!";
-        for(i = 0; i < OPTIONS_NUM; ++i)
+        for(int i = 0; i < OPTIONS_NUM; ++i){
             puts(msgs[i]);
+        }
         puts("Make your choice: --> ");
-        n = getInt(&rc);
-        if(n == 0)
-            rc = 0;
-    } while(rc < 0 || rc >= 8);
-    return rc;
+        if (!getInt(&option)) {
+            option = 0;
+        }
+    } while(option < 0 || option >= OPTIONS_NUM);
+    return option;
 }
 
 char* getString()

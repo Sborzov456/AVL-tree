@@ -5,3 +5,15 @@
    An AVL tree is a binary tree in which the **_heights of the left and right subtrees for each node differ by no more than one_**. This is the property of balance.
    
    It has been proven that this property provides a _logarithmic dependence_ of the tree height on the number of nodes, which increases the speed of basic operations        such as insertion, deletion and search.
+   
+   Here is an example of a balanced AVL tree:
+   
+        50
+       /  \
+      45  63
+     /  \
+    43  47
+    
+
+   
+   

@@ -14,6 +14,13 @@
      /  \
     43  47
     
+## :pushpin: AVL vs Binary 
+   The table below compares the **_time complexity_** of running the main algorithms on an AVL tree and a binary tree.
+   This table shows that the AVL tree is faster.
 
-   
+   |             | AVL Tree | Binary Tree |
+   |-------------|----------|-------------|
+   | `insertion` | O(logN)  |    O(N)     |
+   | `deletion`  | O(logN)  |    O(N)     |
+   | `search`    | O(logN)  |    O(N)     |
    

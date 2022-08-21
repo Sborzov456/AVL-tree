@@ -24,3 +24,25 @@
    | `deletion`  | O(logN)  |    O(N)     |
    | `search`    | O(logN)  |    O(N)     |
    
+## :pushpin: Implemented functions
+   Each node of the tree stores a key and information. The information is a string.
+   
+   **In the case of repeated keys, the information from the node with the duplicate key is entered into the information list of the node that first encountered such a     key.**
+   
+   ### :exclamation: Functions:
+
+   - [x] `add` : adds a node to the tree
+   - [x] `extract` : deletes a node with the ability to delete both all node duplicates and a specific instance
+   - [x] `search` : searches for a node by key
+   - [x] `findMin` : finds the node with the minimum key
+   - [x] `findMax` ; finds the node with the maximum key
+   - [x] `findFurthestItem` : finds the node whose key is minimally different from the given one
+   - [x] `print` : prints tree in console; example:   
+   
+                                                   
+                                                         55 
+                                                      50   
+                                                         45
+                                                            33
+   
+                                               

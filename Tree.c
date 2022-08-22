@@ -12,11 +12,15 @@ node *create(node *root) {
 }
 
 node *search(node *root, int key) {
-    if ((root == NULL) || (root->key == key))
+    if (!root || root->key == key) {
         return root;
-    if (key < root->key)
+    }
+    if (key < root->key) {
         return search(root->left, key);
-    else return search(root->right, key);
+    }
+    else {
+        return search(root->right, key);
+    }
 }
 
 info *addItemToInfoList(info *infoListHead, char *information) {
@@ -25,7 +29,7 @@ info *addItemToInfoList(info *infoListHead, char *information) {
     tmp->info = strcpy(tmp->info, information);
     tmp->next = NULL;
     info *head = infoListHead;
-    while (head->next != NULL){
+    while (head->next){
         head = head->next;
     }
     head->next = tmp;
@@ -38,15 +42,19 @@ node *add(node *root, int key, char *information) {
     node *newNode = (node *) malloc(sizeof(node));
     newNode->key = key;
     newNode->balance = 0;
-    while (currentNode != NULL) {
+    while (currentNode) {
         previousNode = currentNode;
         if (key < currentNode->key) {
             currentNode = currentNode->left;
-        } else if (key > currentNode->key) {
+        }
+        else if (key > currentNode->key) {
             currentNode = currentNode->right;
-        } else break;
+        }
+        else {
+            break;
+        }
     }
-    if (currentNode == NULL) {
+    if (!currentNode) {
         newNode->info = (info *) malloc(sizeof(info));
         newNode->info->info = (char *)malloc(strlen(information)*sizeof(char));
         newNode->info->info = strcpy(newNode->info->info, information);
@@ -54,10 +62,10 @@ node *add(node *root, int key, char *information) {
         newNode->parent = previousNode;
         newNode->left = NULL;
         newNode->right = NULL;
-        if ((previousNode) && (key <= previousNode->key)){
+        if (previousNode && key <= previousNode->key) {
             previousNode->left = newNode;
         }
-        else if (previousNode){
+        else if (previousNode) {
             previousNode->right = newNode;
         }
         recountBalance(root);
@@ -66,7 +74,10 @@ node *add(node *root, int key, char *information) {
             printf("Tree is imbalanced in %d key with %d balance factor\n", unbalancedNode->key, unbalancedNode->balance);
             balance(unbalancedNode, &root);
             recountBalance(root);
-        } else printf("Tree is balanced\n");
+        }
+        else {
+            printf("Tree is balanced\n");
+        }
     }
     else {
         currentNode->info = addItemToInfoList(currentNode->info, information);
@@ -76,7 +87,7 @@ node *add(node *root, int key, char *information) {
 
 node *findMin(node *root) {
     node *min = root->right;
-    while (min->left != NULL) {
+    while (min->left) {
         min = min->left;
     }
     return min;
@@ -84,18 +95,18 @@ node *findMin(node *root) {
 
 node *findMax(node *root) {
     node *max = root;
-    while (max->right != NULL){
+    while (max->right){
         max = max->right;
     }
     return max;
 }
 
 int findFurthestItem(node *root, int key) {
-    if ((key - findMin(root)->key) >= (findMax(root)->key - key)){
-        return (findMin(root)->key);
+    if (key - findMin(root)->key >= findMax(root)->key - key){
+        return findMin(root)->key;
     }
     else {
-        return (findMax(root)->key);
+        return findMax(root)->key;
     }
 }
 
@@ -104,7 +115,7 @@ node *extract(node *root, int key) {
     node *nodeToDeleteParent = nodeToDelete->parent;
     node *unbalancedNode;
     //case 1
-    if ((nodeToDelete->right == NULL) && (nodeToDelete->left == NULL)) {
+    if (!nodeToDelete->right && !nodeToDelete->left) {
         if (nodeToDeleteParent->right == nodeToDelete) {
             nodeToDeleteParent->right = NULL;
         }
@@ -114,13 +125,13 @@ node *extract(node *root, int key) {
         free(nodeToDelete);
         recountBalance(root);
         unbalancedNode = searchUnbalancedNode(nodeToDeleteParent);
-        if (unbalancedNode != NULL) {
+        if (unbalancedNode) {
             printf("Tree is imbalanced in %d key with %d balance factor\n", unbalancedNode->key, unbalancedNode->balance);
             balance(unbalancedNode, &root);
         }
     }
     //case 2
-    else if ((nodeToDelete->left == NULL) && (nodeToDelete->right != NULL)) {
+    else if (!nodeToDelete->left && nodeToDelete->right) {
         if (nodeToDeleteParent->right == nodeToDelete){
             nodeToDeleteParent->right = nodeToDelete->right;
         }
@@ -130,28 +141,28 @@ node *extract(node *root, int key) {
         free(nodeToDelete);
         recountBalance(root);
         unbalancedNode = searchUnbalancedNode(nodeToDeleteParent->left);
-        if (unbalancedNode != NULL) {
+        if (unbalancedNode) {
             printf("Tree is imbalanced in %d key with %d balance factor\n", unbalancedNode->key, unbalancedNode->balance);
             balance(unbalancedNode, &root);
         }
     }
     //case 3
-    else if ((nodeToDelete->right == NULL) && (nodeToDelete->left != NULL)) {
+    else if (!nodeToDelete->right && nodeToDelete->left) {
         if (nodeToDeleteParent->left == nodeToDelete) {
             nodeToDeleteParent->left = nodeToDelete->left;
         }
-        else{
+        else {
             nodeToDeleteParent->right = nodeToDelete->left;
         }
         recountBalance(root);
         unbalancedNode = searchUnbalancedNode(nodeToDeleteParent->left);
-        if (unbalancedNode != NULL) {
+        if (unbalancedNode) {
             printf("Tree is imbalanced in %d key with %d balance factor\n", unbalancedNode->key, unbalancedNode->balance);
             balance(unbalancedNode, &root);
         }
     }
     //case 4
-    else if ((nodeToDelete->right != NULL) && (nodeToDelete->left != NULL)) {
+    else if (nodeToDelete->right && nodeToDelete->left) {
         node *minNode = findMin(nodeToDelete);
         node *minNodeParent = minNode->parent;
         if (nodeToDeleteParent->left == nodeToDelete) {
@@ -168,7 +179,7 @@ node *extract(node *root, int key) {
         minNode->left = NULL;
         recountBalance(root);
         unbalancedNode = searchUnbalancedNode(minNodeParent);
-        if (unbalancedNode != NULL) {
+        if (unbalancedNode) {
             printf("Tree is imbalanced in %d key with %d balance factor\n", unbalancedNode->key, unbalancedNode->balance);
             balance(unbalancedNode, &root);
         }
@@ -177,7 +188,7 @@ node *extract(node *root, int key) {
 }
 
 int height(node *root) {
-    if (root == NULL) {
+    if (!root) {
         return 0;
     }
     else {
@@ -186,7 +197,6 @@ int height(node *root) {
 }
 
 void print(node *root, int lvl) {
-
     if (root) {
         print(root->right, lvl + 1);
         for (int i = 0; i < lvl; i++) {
@@ -273,7 +283,9 @@ node *balance(node *unbalancedNode, node **root) {
 }
 
 void recountBalance(node *root) {
-    if (root == NULL) return;
+    if (!root) {
+      return;
+    }
     else {
         root->balance = calculateNodeBalance(root);
         recountBalance(root->left);
